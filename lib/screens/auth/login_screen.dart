@@ -95,6 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     onSuffixTap: () =>
                         setState(() => isPasswordHidden = !isPasswordHidden),
                   ),
+
                   const SizedBox(height: 20),
 
                   _buildButton(
@@ -153,12 +154,21 @@ class _LoginScreenState extends State<LoginScreen> {
       controller: controller,
       obscureText: isPassword,
       cursorColor: Colors.black,
-      style: const TextStyle(color: Colors.black),
+      style: GoogleFonts.poppins(fontSize: 16, color: Colors.black),
       decoration: InputDecoration(
         hintText: hint,
         hintStyle: GoogleFonts.poppins(color: hintTextColor, fontSize: 14),
         counterText: '',
         prefixIcon: Icon(icon, color: textColor),
+        suffixIcon: onSuffixTap != null
+            ? IconButton(
+          icon: Icon(
+            isPassword ? Icons.visibility_off : Icons.visibility,
+            color: textColor,
+          ),
+          onPressed: onSuffixTap,
+        )
+            : null,
         filled: true,
         fillColor: inputFieldColor.withOpacity(0.1),
         border: OutlineInputBorder(
@@ -170,10 +180,12 @@ class _LoginScreenState extends State<LoginScreen> {
           borderSide: BorderSide(color: Colors.black, width: 2),
         ),
         contentPadding:
-            const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+        const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
       ),
     );
   }
+
+
 
   Widget _buildButton({
     required String text,
@@ -251,8 +263,8 @@ class _LoginScreenState extends State<LoginScreen> {
         msg: "Please enter a valid email address.",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
+        backgroundColor: Colors.white,
+        textColor: Colors.red,
       );
       return;
     }
@@ -262,8 +274,8 @@ class _LoginScreenState extends State<LoginScreen> {
         msg: "Password must be at least 6 characters long.",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
+        backgroundColor: Colors.white,
+        textColor: Colors.red,
       );
       return;
     }
@@ -278,8 +290,8 @@ class _LoginScreenState extends State<LoginScreen> {
         "Password must include uppercase, lowercase, number (min 6 chars).",
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
+        backgroundColor: Colors.white,
+        textColor: Colors.red,
       );
       return;
     }
@@ -304,8 +316,8 @@ class _LoginScreenState extends State<LoginScreen> {
           msg: errorData['message'] ?? "Invalid credentials",
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.BOTTOM,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
+          backgroundColor: Colors.white,
+          textColor: Colors.red,
         );
       }
     } catch (e) {
@@ -313,8 +325,8 @@ class _LoginScreenState extends State<LoginScreen> {
         msg: "Something went wrong. Please try again.",
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
+        backgroundColor: Colors.white,
+        textColor: Colors.red,
       );
     } finally {
       setState(() => isLoading = false);

@@ -299,22 +299,54 @@ class _RegisterPageState extends State<RegisterPage> {
     ]);
   }
 
+  // Widget _buildStep2() {
+  //   return _buildStepTemplate("Security & Address", [
+  //     _buildTextField(
+  //         label: "Password",
+  //         hint: "At least 6 characters",
+  //         icon: Icons.lock,
+  //         isPassword: true,
+  //         controller: passwordCtrl),
+  //     _buildTextField(
+  //         label: "Confirm Password",
+  //         hint: "Re-enter your password",
+  //         icon: Icons.lock,
+  //         isPassword: true,
+  //         controller: confirmPasswordCtrl),
+  //   ]);
+  // }
+
   Widget _buildStep2() {
     return _buildStepTemplate("Security & Address", [
       _buildTextField(
-          label: "Password",
-          hint: "At least 6 characters",
-          icon: Icons.lock,
-          isPassword: true,
-          controller: passwordCtrl),
+        label: "Password",
+        hint: "At least 6 characters",
+        icon: Icons.lock,
+        isPassword: !showPassword,
+        showToggle: true,
+        controller: passwordCtrl,
+        onTogglePassword: () {
+          setState(() {
+            showPassword = !showPassword;
+          });
+        },
+      ),
       _buildTextField(
-          label: "Confirm Password",
-          hint: "Re-enter your password",
-          icon: Icons.lock,
-          isPassword: true,
-          controller: confirmPasswordCtrl),
+        label: "Confirm Password",
+        hint: "Re-enter your password",
+        icon: Icons.lock,
+        isPassword: !showConfirmPassword,
+        showToggle: true,
+        controller: confirmPasswordCtrl,
+        onTogglePassword: () {
+          setState(() {
+            showConfirmPassword = !showConfirmPassword;
+          });
+        },
+      ),
     ]);
   }
+
 
   Widget _buildStep3() {
     return _buildStepTemplate("Profile Details", [
@@ -387,6 +419,8 @@ class _RegisterPageState extends State<RegisterPage> {
     required IconData icon,
     required TextEditingController controller,
     bool isPassword = false,
+    bool showToggle = false,
+    VoidCallback? onTogglePassword,
     TextInputType keyboardType = TextInputType.text,
     int? maxLength,
     List<TextInputFormatter>? inputFormatters,
@@ -427,6 +461,15 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               counterText: '',
               prefixIcon: Icon(icon, color: inputFillColor),
+              suffixIcon: showToggle
+                  ? IconButton(
+                icon: Icon(
+                  isPassword ? Icons.visibility_off : Icons.visibility,
+                  color: Colors.grey,
+                ),
+                onPressed: onTogglePassword,
+              )
+                  : null,
               filled: true,
               fillColor: inputFillColor.withOpacity(0.1),
               border: OutlineInputBorder(
@@ -447,6 +490,7 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
   }
+
 
   bool _validateForm() {
 
