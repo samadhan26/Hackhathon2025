@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/theme/wave_clipper.dart';
 import '../../routes/app_routes.dart';
 
@@ -51,16 +51,32 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   ];
 
 
-  void _onNext() {
+  // void _onNext() {
+  //   if (_currentIndex < onboardingData.length - 1) {
+  //     _pageController.nextPage(
+  //       duration: const Duration(milliseconds: 300),
+  //       curve: Curves.easeInOut,
+  //     );
+  //   } else {
+  //     Get.offAllNamed(AppRoutes.welcome);
+  //   }
+  // }
+
+  void _onNext() async {
     if (_currentIndex < onboardingData.length - 1) {
       _pageController.nextPage(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
       );
     } else {
-      Get.offAllNamed(AppRoutes.welcome);
+      // 🚨 Only do this on final page
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('isFirstTime', false);
+
+      Get.offAllNamed(AppRoutes.welcome); // Or welcome screen
     }
   }
+
 
   Widget _buildPage(Map<String, String> data) {
     final theme = Theme.of(context);

@@ -20,6 +20,8 @@ dependencies:
   flutter_tts: ^3.8.5
   flutter_dotenv:
   fluttertoast: ^8.2.4
+  shared_preferences: ^2.2.2
+
 
 
 dev_dependencies:
