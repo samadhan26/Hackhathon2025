@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../post_job_screen/post_job_screen.dart';
+import '../profilescreen/profile_screen.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -149,7 +152,18 @@ class _HomeScreenState extends State<HomeScreen> {
               icon: Icons.account_circle,
               label: 'Profile',
               isSelected: currentIndex == 3,
-              onTap: () => onTap(3),
+                onTap: () {
+                  if (currentIndex != 3) {
+                    setState(() {
+                      currentIndex = 3;
+                    });
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const ProfileScreen()),
+                    );
+                  }
+                }
+
             ),
           ],
         ),
@@ -359,7 +373,27 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _serviceTile(IconData icon, String label) {
     return GestureDetector(
       onTap: () {
-        // Handle tap
+        if (label == "Post Jobs") {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const PostJobScreen()),
+          );
+        // } else if (label == "Create Resume") {
+        //   Navigator.push(
+        //     context,
+        //     MaterialPageRoute(builder: (_) => const CreateResumeScreen()),
+        //   );
+        // } else if (label == "Search Candidates") {
+        //   Navigator.push(
+        //     context,
+        //     MaterialPageRoute(builder: (_) => const SearchCandidatesScreen()),
+        //   );
+        // } else if (label == "Resume Review") {
+        //   Navigator.push(
+        //     context,
+        //     MaterialPageRoute(builder: (_) => const ResumeReviewScreen()),
+        //   );
+        }
       },
       child: Container(
         decoration: BoxDecoration(

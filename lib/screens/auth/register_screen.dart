@@ -591,10 +591,18 @@ class _RegisterPageState extends State<RegisterPage> {
               fillColor: inputFillColor.withOpacity(0.1),
               hintText: hint,
               hintStyle:
-                  GoogleFonts.poppins(fontSize: 14, color: hintTextColor),
+              GoogleFonts.poppins(fontSize: 14, color: hintTextColor),
               contentPadding:
-                  const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
-              prefixIcon: Icon(icon, color: textColor),
+              const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+              prefixIcon: SizedBox(
+                width: 48, // You can adjust the width as needed
+                height: 48,
+                child: Icon(
+                  icon,
+                  color: inputFillColor,
+                  size: 24, // 👈 Increase this value to make the icon bigger (e.g., 28, 30)
+                ),
+              ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
                 borderSide: const BorderSide(color: Colors.black26),
@@ -604,11 +612,18 @@ class _RegisterPageState extends State<RegisterPage> {
                 borderSide: BorderSide(color: primaryColor, width: 2),
               ),
             ),
-            hint: Text(hint, style: GoogleFonts.poppins(fontSize: 14)),
+            hint: Text(
+              hint,
+              style: GoogleFonts.poppins(
+                fontSize: 14,
+                color: hintTextColor, // 👈 Use your custom hint text color
+              ),
+            ),
+
             items: options
                 .map((v) => DropdownMenuItem(
-                    value: v,
-                    child: Text(v, style: GoogleFonts.poppins(fontSize: 14))))
+                value: v,
+                child: Text(v, style: GoogleFonts.poppins(fontSize: 14))))
                 .toList(),
             onChanged: onChanged,
             iconStyleData: IconStyleData(
